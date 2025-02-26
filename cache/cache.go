@@ -95,22 +95,22 @@ func (c *Cache) Command(args ...any) *redis.Cmd {
 }
 
 type CacheOptions struct {
-	host string
-	port string
-	db   int
-	pass string
+	Host string
+	Port string
+	Db   int
+	Pass string
 }
 
 func New(o *CacheOptions) *Cache {
 	log.Infof("Initializing caching connection...")
 
 	redisOpts := redis.Options{
-		Addr:     fmt.Sprintf("%s:%s", o.host, o.port),
-		Password: o.pass,
-		DB:       o.db,
+		Addr:     fmt.Sprintf("%s:%s", o.Host, o.Port),
+		Password: o.Pass,
+		DB:       o.Db,
 	}
 
-	log.Infof("Connection made to %s:%s at DB: %d", o.host, o.port, o.db)
+	log.Infof("Connection made to %s:%s at DB: %d", o.Host, o.Port, o.Db)
 
 	return &Cache{redis.NewClient(&redisOpts)}
 }
