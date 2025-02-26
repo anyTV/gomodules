@@ -90,6 +90,10 @@ func (c *Cache) SetStringMapStringTtl(key string, m map[string]string, duration 
 	return nil
 }
 
+func (c *Cache) Command(args ...any) *redis.Cmd {
+	return c.redis.Do(cacheCtx, args...)
+}
+
 type CacheOptions struct {
 	host string
 	port string
