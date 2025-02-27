@@ -44,3 +44,7 @@ func GetConnection(p string) (*sql.DB, bool) {
 
 	return con, ok
 }
+
+func GetConnections () map[string]*sql.DB {
+	return connections
+}
