@@ -26,8 +26,12 @@ type DbConfig struct {
 	Db string
 }
 
-func CreateConnection(key string, d DbConfig) (*sql.DB, error) {
-	con, err := sql.Open("mysql", CreateDataSourceName(d))
+func CreateConnection(d DbConfig) (*sql.DB, error) {
+	return sql.Open("mysql", CreateDataSourceName(d))
+}
+
+func AddConnection(key string, d DbConfig) (*sql.DB, error) {
+	con, err := CreateConnection(d)
 
 	if err != nil {
 		logger.Fatalf("Failed create connection(%s): %s", d.Db, err)
