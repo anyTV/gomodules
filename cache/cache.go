@@ -32,10 +32,13 @@ func (c *Cache) Delete(key string) {
 	}
 }
 
+func (c *Cache) Get(key string) *redis.StringCmd {
+	return c.redis.Get(cacheCtx, key)
+}
+
 // Primitive caching
 // To add additional commands, go to https://github.com/redis/go-redis/blob/e63669e1706936ac794277340c51a51c5facca70/command.go#L840
 // and create the corresponding methods
-
 func (c *Cache) GetVal(key string) (string, error) {
 	return c.redis.Get(cacheCtx, key).Result()
 }
