@@ -27,18 +27,20 @@ type DbConfig struct {
 }
 
 func CreateConnection(key string, d DbConfig) (*sql.DB, error) {
-	dbCon, err := sql.Open("mysql", CreateDataSourceName(d))
+	con, err := sql.Open("mysql", CreateDataSourceName(d))
 
 	if err != nil {
 		logger.Fatalf("Failed create connection(%s): %s", d.Db, err)
 		return nil, errors.Join(fmt.Errorf("failed to create connection: %s"), err)
 	}
 
-	connections[key] = dbCon
+	connections[key] = con
 
-	return dbCon, nil
+	return con, nil
 }
 
-func GetConnection(p string) (*sql.DB) {
-	return connections[p]
+func GetConnection(p string) (*sql.DB, bool) {
+	con, ok := connections[p]
+
+	return con, ok
 }
