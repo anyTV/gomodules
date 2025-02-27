@@ -1,3 +1,6 @@
+Version 1.2.0:
+ - refactor: change connection creation
+
 Version 1.1.1:
  - feat: add option to get all connections
 
