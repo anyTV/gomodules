@@ -1,3 +1,6 @@
+Version 1.1.1:
+ - feat: add option to get all connections
+
 Version 1.1.0:
  - fix: add ok return for GetConnection
  - feat: add db package
