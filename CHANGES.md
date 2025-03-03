@@ -1,3 +1,6 @@
+Version 1.3.0:
+ - feat: add parseTime for DSN URL
+
 Version 1.2.0:
  - refactor: change connection creation
 
