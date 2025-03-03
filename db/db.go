@@ -13,7 +13,7 @@ var connections map[string]*sql.DB = make(map[string]*sql.DB)
 
 func CreateDataSourceName(v DbConfig) string {
 	return fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s?multiStatements=true",
+		"%s:%s@tcp(%s:%s)/%s?multiStatements=true&parseTime=true",
 		v.User, v.Pass, v.Host, v.Port, v.Db,
 	)
 }
