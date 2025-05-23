@@ -1,3 +1,7 @@
+Version 2.1.0:
+ - feat: drop logging
+ - feat: clean-up
+
 Version 2.0.1:
  - fix: proper versioning
 
