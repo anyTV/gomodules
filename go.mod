@@ -1,4 +1,4 @@
-module github.com/anyTV/gomodules
+module github.com/anyTV/gomodules/v2
 
 go 1.23.5
 
