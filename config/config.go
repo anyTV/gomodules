@@ -8,15 +8,11 @@ import (
 	"github.com/spf13/viper"
 )
 
-const maxDepth = 5
+var maxDepth = 5
 
-func NewConfig(depth *int) {
+func NewConfig() {
 	var configFile = ".env.yaml"
 	var fileType = "yaml"
-
-	if depth == nil {
-		*depth = maxDepth
-	}
 
 	if os.Getenv("ENV") == "production" {
 		configFile = ".env.production"
@@ -28,7 +24,7 @@ func NewConfig(depth *int) {
 	viper.SetConfigType(fileType)
 	var configPath = "./"
 
-	for i := 0; i < *depth; i++ {
+	for i := 0; i < maxDepth; i++ {
 		viper.AddConfigPath(configPath)
 
 		err := viper.ReadInConfig()
@@ -46,6 +42,10 @@ func NewConfig(depth *int) {
 	viper.OnConfigChange(func(e fsnotify.Event) {})
 
 	viper.WatchConfig()
+}
+
+func SetMaxDepth(v int) {
+	maxDepth = v
 }
 
 func GetString(key string) string {
