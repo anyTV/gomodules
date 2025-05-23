@@ -13,9 +13,13 @@ const maxDepth = 5
 
 var log = L.New("config.go")
 
-func init() {
+func NewConfig(depth *int) {
 	var configFile = ".env.yaml"
 	var fileType = "yaml"
+
+	if depth == nil {
+		*depth = maxDepth
+	}
 
 	if os.Getenv("ENV") == "production" {
 		configFile = ".env.production"
@@ -27,7 +31,7 @@ func init() {
 	viper.SetConfigType(fileType)
 	var configPath = "./"
 
-	for i := 0; i < maxDepth; i++ {
+	for i := 0; i < *depth; i++ {
 		viper.AddConfigPath(configPath)
 
 		log.Debugf(
