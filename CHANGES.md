@@ -1,3 +1,6 @@
+Version 2.2.0:
+ - feat: add SetMaxDepth
+
 Version 2.1.0:
  - feat: drop logging
  - feat: clean-up
