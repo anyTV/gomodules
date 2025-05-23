@@ -1,3 +1,6 @@
+Version 2.0.1:
+ - fix: proper versioning
+
 Version 2.0.0:
  - feat: avoid init in go modules
 
