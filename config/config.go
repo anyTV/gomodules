@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	L "github.com/anyTV/gomodules/logging"
+	L "github.com/anyTV/gomodules/v2/logging"
 	"github.com/fsnotify/fsnotify"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
