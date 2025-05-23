@@ -1,3 +1,6 @@
+Version 2.0.0:
+ - feat: avoid init in go modules
+
 Version 1.3.0:
  - feat: add parseTime for DSN URL
 
