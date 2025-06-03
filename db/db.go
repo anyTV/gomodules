@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	logger "github.com/anyTV/gomodules/logging"
+	logger "github.com/anyTV/gomodules/v2/logging"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -23,7 +23,7 @@ type DbConfig struct {
 	Pass string
 	Host string
 	Port string
-	Db string
+	Db   string
 }
 
 func CreateConnection(d DbConfig) (*sql.DB, error) {
@@ -49,6 +49,6 @@ func GetConnection(p string) (*sql.DB, bool) {
 	return con, ok
 }
 
-func GetConnections () map[string]*sql.DB {
+func GetConnections() map[string]*sql.DB {
 	return connections
 }
