@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/anyTV/gomodules/ftime"
-	logger "github.com/anyTV/gomodules/logging"
+	"github.com/anyTV/gomodules/v2/ftime"
+	logger "github.com/anyTV/gomodules/v2/logging"
 	"github.com/redis/go-redis/v9"
 )
 
