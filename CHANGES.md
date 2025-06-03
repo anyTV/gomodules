@@ -1,3 +1,6 @@
+Version 2.2.1:
+ - fix: update imports to use v2 [(#1)](https://github.com/anyTV/gomodules/pull/1)
+
 Version 2.2.0:
  - feat: add SetMaxDepth
 
