@@ -1,3 +1,6 @@
+Version 2.2.2:
+ - feat: update internal server error
+
 Version 2.2.1:
  - fix: update imports to use v2 [(#1)](https://github.com/anyTV/gomodules/pull/1)
 
