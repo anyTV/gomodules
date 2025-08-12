@@ -29,5 +29,9 @@ func BadRequestError(code, errorFormat string, vals ...any) HttpError {
 
 // Internal server error
 func InternalServerError(errorFmt string, vals ...any) error {
-	return fmt.Errorf(errorFmt, vals...)
+	return NewHttpError(
+		http.StatusInternalServerError,
+		"internal_server_error",
+		fmt.Sprintf(errorFmt, vals...),
+	)
 }
