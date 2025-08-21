@@ -1,3 +1,6 @@
+Version 2.2.3:
+ - feat: add config.GetInt
+
 Version 2.2.2:
  - feat: update internal server error
 
