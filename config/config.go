@@ -64,3 +64,7 @@ func GetStringMapString(key string) map[string]string {
 func Get(key string) any {
 	return viper.Get(key)
 }
+
+func GetInt(key string) int {
+	return viper.GetInt(key)
+}
