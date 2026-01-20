@@ -157,7 +157,7 @@ func (ll logStruct) printf(lvl levelType, format string, v ...any) {
 		return
 	}
 
-	ll.logInstance.Printf(lvl.color() + "["+ll.ctx+"] "+format+ RESET, fmt.Sprint(v...))
+	ll.logInstance.Printf(lvl.color() + "["+ll.ctx+"] "+format+ RESET, v...)
 }
 
 
