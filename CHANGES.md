@@ -1,3 +1,6 @@
+Version 2.3.2:
+ - feat: add SetContext function
+
 Version 2.3.1:
  - fix: printf formatting
 
