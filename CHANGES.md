@@ -1,3 +1,6 @@
+Version 2.3.0:
+ - feat: updated logger
+
 Version 2.2.3:
  - feat: add config.GetInt
 
