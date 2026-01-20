@@ -10,20 +10,20 @@ import (
 // See https://stackoverflow.com/a/76867161 for possible implementation
 
 // reset
-var RESET = "\033[0m"
+var colorReset = "\033[0m"
 
 // COLORS
-var RED = "\033[31m"
-var GREEN = "\033[32m"
-var YELLOW = "\033[33m"
-var BLUE = "\033[34m"
+var colorRed = "\033[31m"
+var colorGreen = "\033[32m"
+var colorYellow = "\033[33m"
+var colorBlue = "\033[34m"
 
 
 // Reserved Color Variables
-var MAGENTA = "\033[35m"
-var CYAN = "\033[36m"
-var GRAY = "\033[37m"
-var WHITE = "\033[97m"
+var colorMagenta = "\033[35m"
+var colorCyan = "\033[36m"
+var colorGray = "\033[37m"
+var colorWhite = "\033[97m"
 
 // levelType
 type levelType int8
@@ -56,25 +56,29 @@ func (l levelType) String() string {
 func (l levelType) color() string {
 	switch l {
 	case DEBUG:
-		return BLUE
+		return colorBlue
 	case INFO:
-		return GREEN
+		return colorGreen
 	case WARN:
-		return YELLOW
+		return colorYellow
 	case ERROR:
-		return RED
+		return colorRed
 	case FATAL:
-		return RED
+		return colorRed
 	default:
-		return GREEN
+		return colorGreen
 	}
 }
 
 // module instance
-var globalLogger = New("DEFAULT", INFO)
+var globalLogger = New("sys", INFO)
 
 func SetLevel(v levelType) {
 	globalLogger.SetLevel(v)
+}
+
+func SetContext(c string) {
+	globalLogger.SetContext(c)
 }
 
 // START - Printf
@@ -157,7 +161,7 @@ func (ll logStruct) printf(lvl levelType, format string, v ...any) {
 		return
 	}
 
-	ll.logInstance.Printf(lvl.color() + "["+ll.ctx+"] "+format+ RESET, v...)
+	ll.logInstance.Printf(lvl.color() + "["+ll.ctx+"] "+format+ colorReset, v...)
 }
 
 
@@ -191,7 +195,7 @@ func (ll logStruct) println(lvl levelType, v ...any) {
 		return
 	}
 
-	ll.logInstance.Println(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), RESET)
+	ll.logInstance.Println(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
 }
 
 func (ll logStruct) Debugln(v ...any) {
@@ -221,7 +225,7 @@ func (ll logStruct) print(lvl levelType, v ...any) {
 		return
 	}
 
-	ll.logInstance.Print(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), RESET)
+	ll.logInstance.Print(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
 }
 
 func (ll logStruct) Debug(v ...any) {
@@ -245,6 +249,10 @@ func (ll logStruct) Fatal(v ...any) {
 
 func (ll logStruct) SetLevel(v levelType) {
 	ll.level = v
+}
+
+func (ll logStruct) SetContext(c string) {
+	ll.ctx = c
 }
 
 func New(ctx string, l levelType) logStruct {
