@@ -12,7 +12,7 @@ import (
 
 var cacheCtx = context.Background()
 
-var log = logger.New("cache.go")
+var log = logger.New("cache.go", logger.INFO)
 
 // ----------------------------------------------------------------------------
 
