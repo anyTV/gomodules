@@ -1,3 +1,6 @@
+Version 2.3.1:
+ - fix: printf formatting
+
 Version 2.3.0:
  - feat: updated logger
 
