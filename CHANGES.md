@@ -1,3 +1,6 @@
+Version 2.3.3:
+ - fix: SetContext & SetLevel not modifying values
+
 Version 2.3.2:
  - feat: add SetContext function
 
