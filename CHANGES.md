@@ -1,3 +1,6 @@
+Version 2.3.4:
+ - feat: add support for getting level
+
 Version 2.3.3:
  - fix: SetContext & SetLevel not modifying values
 
