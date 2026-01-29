@@ -77,6 +77,10 @@ func SetLevel(v levelType) {
 	globalLogger.SetLevel(v)
 }
 
+func GetLevel() levelType {
+	return globalLogger.level
+}
+
 func SetContext(c string) {
 	globalLogger.SetContext(c)
 }
