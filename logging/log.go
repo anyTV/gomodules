@@ -247,11 +247,11 @@ func (ll logStruct) Fatal(v ...any) {
 	os.Exit(1)
 }
 
-func (ll logStruct) SetLevel(v levelType) {
+func (ll *logStruct) SetLevel(v levelType) {
 	ll.level = v
 }
 
-func (ll logStruct) SetContext(c string) {
+func (ll *logStruct) SetContext(c string) {
 	ll.ctx = c
 }
 
