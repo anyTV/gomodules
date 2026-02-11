@@ -259,6 +259,14 @@ func (ll *logStruct) SetContext(c string) {
 	ll.ctx = c
 }
 
+func (ll logStruct) GetLevel() levelType {
+	return ll.level
+}
+
+func (ll logStruct) GetContext() string {
+	return ll.ctx
+}
+
 func New(ctx string, l levelType) logStruct {
 	return logStruct{ctx, log.New(os.Stderr, "", log.LstdFlags), l}
 }
