@@ -1,3 +1,8 @@
+Version 2.3.5:
+ - feat: revert changes
+ - feat: use token generator
+ - feat: add get methods
+
 Version 2.3.4:
  - feat: add support for getting level
 
