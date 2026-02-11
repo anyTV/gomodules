@@ -1,3 +1,6 @@
+Version 2.3.6:
+ - feat: allow LogStruct to be reference outside
+
 Version 2.3.5:
  - feat: revert changes
  - feat: use token generator
