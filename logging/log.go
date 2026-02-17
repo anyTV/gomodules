@@ -18,7 +18,6 @@ var colorGreen = "\033[32m"
 var colorYellow = "\033[33m"
 var colorBlue = "\033[34m"
 
-
 // Reserved Color Variables
 var colorMagenta = "\033[35m"
 var colorCyan = "\033[36m"
@@ -165,9 +164,8 @@ func (ll LogStruct) printf(lvl levelType, format string, v ...any) {
 		return
 	}
 
-	ll.logInstance.Printf(lvl.color() + "["+ll.ctx+"] "+format+ colorReset, v...)
+	ll.logInstance.Printf(lvl.color()+"["+ll.ctx+"] "+format+colorReset, v...)
 }
-
 
 func (ll LogStruct) Debugf(format string, v ...any) {
 	ll.printf(DEBUG, format, v...)
@@ -193,13 +191,12 @@ func (ll LogStruct) Fatalf(format string, v ...any) {
 	os.Exit(1)
 }
 
-
 func (ll LogStruct) println(lvl levelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
-	ll.logInstance.Println(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
+	ll.logInstance.Println(fmt.Sprintf(lvl.color()+"[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
 }
 
 func (ll LogStruct) Debugln(v ...any) {
@@ -223,13 +220,12 @@ func (ll LogStruct) Fatalln(v ...any) {
 	os.Exit(1)
 }
 
-
 func (ll LogStruct) print(lvl levelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
-	ll.logInstance.Print(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
+	ll.logInstance.Print(fmt.Sprintf(lvl.color()+"[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
 }
 
 func (ll LogStruct) Debug(v ...any) {
@@ -244,6 +240,7 @@ func (ll LogStruct) Warn(v ...any) {
 func (ll LogStruct) Error(v ...any) {
 	ll.print(ERROR, v...)
 }
+
 // Fatal
 // Prints with Print, followed by os.Exit(1)
 func (ll LogStruct) Fatal(v ...any) {
