@@ -17,8 +17,8 @@ import (
 //  3. .env.local.yaml       (Local Developer Override - Optional)
 //
 // Example: config.LoadEnv[AppConfig]("ENV")
-func LoadEnv[T any](envVar string) (*T, error) {
-	env := os.Getenv(envVar)
+func New[T any]() (*T, error) {
+	env := os.Getenv("ENV")
 	if env == "" {
 		return nil, fmt.Errorf("missing env value")
 	}
