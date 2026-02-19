@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// LoadEnv automatically loads configuration based on an environment variable.
+// New automatically loads configuration based on an environment variable.
 // It assumes the following standard naming convention:
 //  1. .env.yaml             (Base - Must exist)
 //  2. .env.{ENV}.yaml       (Environment Override - Optional)
