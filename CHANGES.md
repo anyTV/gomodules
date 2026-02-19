@@ -1,3 +1,6 @@
+Version 2.3.7:
+ - DEV-5777: Add logger to context [(#3)](https://github.com/anyTV/gomodules/pull/3)
+
 Version 2.3.6:
  - feat: allow LogStruct to be reference outside
 
