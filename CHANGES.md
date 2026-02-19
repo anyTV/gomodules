@@ -1,3 +1,6 @@
+Version 2.3.8:
+ - DEV-5777: downgrade-nanoid [(#4)](https://github.com/anyTV/gomodules/pull/4)
+
 Version 2.3.7:
  - DEV-5777: Add logger to context [(#3)](https://github.com/anyTV/gomodules/pull/3)
 
