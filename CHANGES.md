@@ -1,3 +1,17 @@
+Version 2.3.8:
+ - DEV-5777: downgrade-nanoid [(#4)](https://github.com/anyTV/gomodules/pull/4)
+
+Version 2.3.7:
+ - DEV-5777: Add logger to context [(#3)](https://github.com/anyTV/gomodules/pull/3)
+
+Version 2.3.6:
+ - feat: allow LogStruct to be reference outside
+
+Version 2.3.5:
+ - feat: revert changes
+ - feat: use token generator
+ - feat: add get methods
+
 Version 2.3.4:
  - feat: add support for getting level
 

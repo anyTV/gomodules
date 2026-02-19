@@ -18,7 +18,6 @@ var colorGreen = "\033[32m"
 var colorYellow = "\033[33m"
 var colorBlue = "\033[34m"
 
-
 // Reserved Color Variables
 var colorMagenta = "\033[35m"
 var colorCyan = "\033[36m"
@@ -154,111 +153,117 @@ func Fatal(v ...any) {
 
 // START - logStruct
 
-type logStruct struct {
+type LogStruct struct {
 	ctx         string
 	logInstance *log.Logger
 	level       levelType
 }
 
-func (ll logStruct) printf(lvl levelType, format string, v ...any) {
+func (ll LogStruct) printf(lvl levelType, format string, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
-	ll.logInstance.Printf(lvl.color() + "["+ll.ctx+"] "+format+ colorReset, v...)
+	ll.logInstance.Printf(lvl.color()+"["+ll.ctx+"] "+format+colorReset, v...)
 }
 
-
-func (ll logStruct) Debugf(format string, v ...any) {
+func (ll LogStruct) Debugf(format string, v ...any) {
 	ll.printf(DEBUG, format, v...)
 }
 
-func (ll logStruct) Infof(format string, v ...any) {
+func (ll LogStruct) Infof(format string, v ...any) {
 	ll.printf(INFO, format, v...)
 }
 
-func (ll logStruct) Warnf(format string, v ...any) {
+func (ll LogStruct) Warnf(format string, v ...any) {
 	ll.printf(WARN, format, v...)
 }
 
-func (ll logStruct) Errorf(format string, v ...any) {
+func (ll LogStruct) Errorf(format string, v ...any) {
 	ll.printf(ERROR, format, v...)
 }
 
 // Fatalf
 //
 // Prints with Printf, followed by os.Exit(1)
-func (ll logStruct) Fatalf(format string, v ...any) {
+func (ll LogStruct) Fatalf(format string, v ...any) {
 	ll.printf(FATAL, format, v...)
 	os.Exit(1)
 }
 
-
-func (ll logStruct) println(lvl levelType, v ...any) {
+func (ll LogStruct) println(lvl levelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
-	ll.logInstance.Println(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
+	ll.logInstance.Println(fmt.Sprintf(lvl.color()+"[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
 }
 
-func (ll logStruct) Debugln(v ...any) {
+func (ll LogStruct) Debugln(v ...any) {
 	ll.println(DEBUG, v...)
 }
-func (ll logStruct) Infoln(v ...any) {
+func (ll LogStruct) Infoln(v ...any) {
 	ll.println(INFO, v...)
 }
-func (ll logStruct) Warnln(v ...any) {
+func (ll LogStruct) Warnln(v ...any) {
 	ll.println(WARN, v...)
 }
-func (ll logStruct) Errorln(v ...any) {
+func (ll LogStruct) Errorln(v ...any) {
 	ll.println(ERROR, v...)
 }
 
 // Fatalln
 //
 // Prints with Println, followed by os.Exit(1)
-func (ll logStruct) Fatalln(v ...any) {
+func (ll LogStruct) Fatalln(v ...any) {
 	ll.println(FATAL, v...)
 	os.Exit(1)
 }
 
-
-func (ll logStruct) print(lvl levelType, v ...any) {
+func (ll LogStruct) print(lvl levelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
-	ll.logInstance.Print(fmt.Sprintf(lvl.color() + "[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
+	ll.logInstance.Print(fmt.Sprintf(lvl.color()+"[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
 }
 
-func (ll logStruct) Debug(v ...any) {
+func (ll LogStruct) Debug(v ...any) {
 	ll.print(DEBUG, v...)
 }
-func (ll logStruct) Info(v ...any) {
+func (ll LogStruct) Info(v ...any) {
 	ll.print(INFO, v...)
 }
-func (ll logStruct) Warn(v ...any) {
+func (ll LogStruct) Warn(v ...any) {
 	ll.print(WARN, v...)
 }
-func (ll logStruct) Error(v ...any) {
+func (ll LogStruct) Error(v ...any) {
 	ll.print(ERROR, v...)
 }
+
 // Fatal
 // Prints with Print, followed by os.Exit(1)
-func (ll logStruct) Fatal(v ...any) {
+func (ll LogStruct) Fatal(v ...any) {
 	ll.print(FATAL, v...)
 	os.Exit(1)
 }
 
-func (ll *logStruct) SetLevel(v levelType) {
+func (ll *LogStruct) SetLevel(v levelType) {
 	ll.level = v
 }
 
-func (ll *logStruct) SetContext(c string) {
+func (ll *LogStruct) SetContext(c string) {
 	ll.ctx = c
 }
 
-func New(ctx string, l levelType) logStruct {
-	return logStruct{ctx, log.New(os.Stderr, "", log.LstdFlags), l}
+func (ll LogStruct) GetLevel() levelType {
+	return ll.level
+}
+
+func (ll LogStruct) GetContext() string {
+	return ll.ctx
+}
+
+func New(ctx string, l levelType) LogStruct {
+	return LogStruct{ctx, log.New(os.Stderr, "", log.LstdFlags), l}
 }
