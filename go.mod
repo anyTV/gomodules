@@ -7,7 +7,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-sql-driver/mysql v1.9.0
 	github.com/redis/go-redis/v9 v9.7.1
-	github.com/sixafter/nanoid v1.63.1
+	github.com/sixafter/nanoid v1.44.0
 	github.com/spf13/viper v1.19.0
 )
 
@@ -37,8 +37,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
-	github.com/sixafter/aes-ctr-drbg v1.17.0 // indirect
-	github.com/sixafter/prng-chacha v1.15.0 // indirect
+	github.com/sixafter/prng-chacha v1.2.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
