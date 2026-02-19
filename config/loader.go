@@ -14,9 +14,9 @@ import (
 //  1. .env.yaml             (Base - Must exist)
 //  2. .env.{ENV}.yaml       (Environment Override - Optional)
 //  3. .env.{ENV}.local.yaml (Local Environment Override - Optional)
-//  3. .env.local.yaml       (Local Developer Override - Optional)
+//  4. .env.local.yaml       (Local Override - Optional)
 //
-// Example: config.LoadEnv[AppConfig]("ENV")
+// Example: config.LoadEnv[AppConfig]()
 func New[T any]() (*T, error) {
 	env := os.Getenv("ENV")
 	if env == "" {
