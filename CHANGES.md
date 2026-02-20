@@ -1,3 +1,6 @@
+Version 2.3.9:
+ - Delta-3102 Gomodules > Config > Create new method to allow adding multiple configs [(#2)](https://github.com/anyTV/gomodules/pull/2)
+
 Version 2.3.8:
  - DEV-5777: downgrade-nanoid [(#4)](https://github.com/anyTV/gomodules/pull/4)
 
