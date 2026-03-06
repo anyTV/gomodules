@@ -1,3 +1,6 @@
+Version 2.4.0:
+ - Delta-3112 gomodules > Deprecate config.NewConfig and related methods [(#5)](https://github.com/anyTV/gomodules/pull/5)
+
 Version 2.3.9:
  - Delta-3102 Gomodules > Config > Create new method to allow adding multiple configs [(#2)](https://github.com/anyTV/gomodules/pull/2)
 

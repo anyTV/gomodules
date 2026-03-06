@@ -19,9 +19,6 @@ import (
 // Example: config.LoadEnv[AppConfig]()
 func New[T any]() (*T, error) {
 	env := os.Getenv("ENV")
-	if env == "" {
-		return nil, fmt.Errorf("missing env value")
-	}
 
 	files := []string{
 		".env.yaml",                            // Base

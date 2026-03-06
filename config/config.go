@@ -10,6 +10,7 @@ import (
 
 var maxDepth = 5
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func NewConfig() {
 	var configFile = ".env.yaml"
 	var fileType = "yaml"
@@ -44,31 +45,38 @@ func NewConfig() {
 	viper.WatchConfig()
 }
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func SetMaxDepth(v int) {
 	maxDepth = v
 }
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func GetString(key string) string {
 	return viper.GetString(key)
 }
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func GetStringSlice(key string) []string {
 	return viper.GetStringSlice(key)
 
 }
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func GetStringMapString(key string) map[string]string {
 	return viper.GetStringMapString(key)
 }
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func Get(key string) any {
 	return viper.Get(key)
 }
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func GetInt(key string) int {
 	return viper.GetInt(key)
 }
 
+// Deprecated: Use config.New[env.AppConfig]() instead
 func GetBool(key string) bool {
 	return viper.GetBool(key)
 }
