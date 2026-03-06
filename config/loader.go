@@ -65,9 +65,11 @@ func Load[T any](paths ...string) (*T, error) {
 	var cfg T
 	if err := v.Unmarshal(&cfg, viper.DecodeHook(
 		mapstructure.ComposeDecodeHookFunc(
+			// Default values:
 			mapstructure.StringToTimeDurationHookFunc(),
 			mapstructure.StringToSliceHookFunc(","),
-			mapstructure.TextUnmarshallerHookFunc(),
+			// New values:
+			mapstructure.TextUnmarshallerHookFunc(), // Also enables adding custom UnmarshalText hooks
 		),
 	)); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal config: %w", err)
