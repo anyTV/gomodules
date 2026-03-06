@@ -18,10 +18,10 @@ var colorGray = "\033[37m"
 var colorWhite = "\033[97m"
 
 // levelType
-type levelType int8
+type LevelType int8
 
 const (
-	VERBOSE levelType = iota - 2 // -2
+	VERBOSE LevelType = iota - 2 // -2
 	DEBUG                        // -1
 	INFO                         // 0
 	WARN                         // 1
@@ -29,7 +29,7 @@ const (
 	FATAL                        // 3
 )
 
-func (l levelType) String() string {
+func (l LevelType) String() string {
 	switch l {
 	case VERBOSE:
 		return "VERBOSE"
@@ -48,7 +48,7 @@ func (l levelType) String() string {
 	}
 }
 
-func (l levelType) color() string {
+func (l LevelType) color() string {
 	switch l {
 	case VERBOSE:
 		return colorCyan
@@ -69,7 +69,7 @@ func (l levelType) color() string {
 
 // ParseLevel converts a string representation of a log level to a levelType.
 // It defaults to INFO if the string is unrecognized or empty.
-func ParseLevel(levelStr string) levelType {
+func ParseLevel(levelStr string) LevelType {
 	switch strings.ToUpper(strings.TrimSpace(levelStr)) {
 	case "VERBOSE":
 		return VERBOSE // Assuming you added VERBOSE as -2
@@ -89,7 +89,7 @@ func ParseLevel(levelStr string) levelType {
 }
 
 // UnmarshalText teaches Viper/mapstructure how to decode a string into a levelType
-func (l *levelType) UnmarshalText(text []byte) error {
+func (l *LevelType) UnmarshalText(text []byte) error {
 	*l = ParseLevel(string(text)) // Using the ParseLevel func from my previous message
 	return nil
 }

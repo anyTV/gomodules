@@ -12,11 +12,11 @@ import (
 // module instance
 var globalLogger = New("sys", INFO)
 
-func SetLevel(v levelType) {
+func SetLevel(v LevelType) {
 	globalLogger.SetLevel(v)
 }
 
-func GetLevel() levelType {
+func GetLevel() LevelType {
 	return globalLogger.level
 }
 
@@ -107,10 +107,10 @@ func Fatal(v ...any) {
 type LogStruct struct {
 	ctx         string
 	logInstance *log.Logger
-	level       levelType
+	level       LevelType
 }
 
-func (ll LogStruct) printf(lvl levelType, format string, v ...any) {
+func (ll LogStruct) printf(lvl LevelType, format string, v ...any) {
 	if lvl < ll.level {
 		return
 	}
@@ -146,7 +146,7 @@ func (ll LogStruct) Fatalf(format string, v ...any) {
 	os.Exit(1)
 }
 
-func (ll LogStruct) println(lvl levelType, v ...any) {
+func (ll LogStruct) println(lvl LevelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
@@ -179,7 +179,7 @@ func (ll LogStruct) Fatalln(v ...any) {
 	os.Exit(1)
 }
 
-func (ll LogStruct) print(lvl levelType, v ...any) {
+func (ll LogStruct) print(lvl LevelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
@@ -211,7 +211,7 @@ func (ll LogStruct) Fatal(v ...any) {
 	os.Exit(1)
 }
 
-func (ll *LogStruct) SetLevel(v levelType) {
+func (ll *LogStruct) SetLevel(v LevelType) {
 	ll.level = v
 }
 
@@ -219,7 +219,7 @@ func (ll *LogStruct) SetContext(c string) {
 	ll.ctx = c
 }
 
-func (ll LogStruct) GetLevel() levelType {
+func (ll LogStruct) GetLevel() LevelType {
 	return ll.level
 }
 
@@ -227,6 +227,6 @@ func (ll LogStruct) GetContext() string {
 	return ll.ctx
 }
 
-func New(ctx string, l levelType) LogStruct {
+func New(ctx string, l LevelType) LogStruct {
 	return LogStruct{ctx, log.New(os.Stderr, "", log.LstdFlags), l}
 }
