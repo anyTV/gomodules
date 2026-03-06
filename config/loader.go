@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	logger "github.com/anyTV/gomodules/v2/logging"
-	"github.com/mitchellh/mapstructure"
+	"github.com/go-viper/mapstructure/v2"
 	"github.com/spf13/viper"
 )
 
