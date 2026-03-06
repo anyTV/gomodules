@@ -1,3 +1,6 @@
+Version 2.5.0:
+ - Dev-5844 [H2] > Logs > add verbose [(#6)](https://github.com/anyTV/gomodules/pull/6)
+
 Version 2.4.0:
  - Delta-3112 gomodules > Deprecate config.NewConfig and related methods [(#5)](https://github.com/anyTV/gomodules/pull/5)
 
