@@ -9,74 +9,14 @@ import (
 // TODO: replace implementation with log/slog
 // See https://stackoverflow.com/a/76867161 for possible implementation
 
-// reset
-var colorReset = "\033[0m"
-
-// COLORS
-var colorRed = "\033[31m"
-var colorGreen = "\033[32m"
-var colorYellow = "\033[33m"
-var colorBlue = "\033[34m"
-
-// Reserved Color Variables
-var colorMagenta = "\033[35m"
-var colorCyan = "\033[36m"
-var colorGray = "\033[37m"
-var colorWhite = "\033[97m"
-
-// levelType
-type levelType int8
-
-const (
-	DEBUG levelType = iota - 1 // -1
-	INFO                       // 0
-	WARN                       // 1
-	ERROR                      // 2
-	FATAL                      // 3
-)
-
-func (l levelType) String() string {
-	switch l {
-	case DEBUG:
-		return "DEBUG"
-	case INFO:
-		return "INFO"
-	case WARN:
-		return "WARN"
-	case ERROR:
-		return "ERROR"
-	case FATAL:
-		return "ERROR"
-	default:
-		return "DEBUG"
-	}
-}
-
-func (l levelType) color() string {
-	switch l {
-	case DEBUG:
-		return colorBlue
-	case INFO:
-		return colorGreen
-	case WARN:
-		return colorYellow
-	case ERROR:
-		return colorRed
-	case FATAL:
-		return colorRed
-	default:
-		return colorGreen
-	}
-}
-
 // module instance
 var globalLogger = New("sys", INFO)
 
-func SetLevel(v levelType) {
+func SetLevel(v LevelType) {
 	globalLogger.SetLevel(v)
 }
 
-func GetLevel() levelType {
+func GetLevel() LevelType {
 	return globalLogger.level
 }
 
@@ -85,6 +25,10 @@ func SetContext(c string) {
 }
 
 // START - Printf
+
+func Verbosef(format string, v ...any) {
+	globalLogger.Verbosef(format, v...)
+}
 
 func Debugf(format string, v ...any) {
 	globalLogger.Debugf(format, v...)
@@ -113,6 +57,10 @@ func Fatalf(format string, v ...any) {
 
 // START - Println
 
+func Verboseln(v ...any) {
+	globalLogger.Verboseln(v...)
+}
+
 func Debugln(v ...any) {
 	globalLogger.Debugln(v...)
 }
@@ -133,6 +81,9 @@ func Fatalln(v ...any) {
 
 // START - Print
 
+func Verbose(v ...any) {
+	globalLogger.Verbose(v...)
+}
 func Debug(v ...any) {
 	globalLogger.Debug(v...)
 }
@@ -156,15 +107,19 @@ func Fatal(v ...any) {
 type LogStruct struct {
 	ctx         string
 	logInstance *log.Logger
-	level       levelType
+	level       LevelType
 }
 
-func (ll LogStruct) printf(lvl levelType, format string, v ...any) {
+func (ll LogStruct) printf(lvl LevelType, format string, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
 	ll.logInstance.Printf(lvl.color()+"["+ll.ctx+"] "+format+colorReset, v...)
+}
+
+func (ll LogStruct) Verbosef(format string, v ...any) {
+	ll.printf(VERBOSE, format, v...)
 }
 
 func (ll LogStruct) Debugf(format string, v ...any) {
@@ -191,12 +146,16 @@ func (ll LogStruct) Fatalf(format string, v ...any) {
 	os.Exit(1)
 }
 
-func (ll LogStruct) println(lvl levelType, v ...any) {
+func (ll LogStruct) println(lvl LevelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
 	ll.logInstance.Println(fmt.Sprintf(lvl.color()+"[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
+}
+
+func (ll LogStruct) Verboseln(v ...any) {
+	ll.println(VERBOSE, v...)
 }
 
 func (ll LogStruct) Debugln(v ...any) {
@@ -220,12 +179,16 @@ func (ll LogStruct) Fatalln(v ...any) {
 	os.Exit(1)
 }
 
-func (ll LogStruct) print(lvl levelType, v ...any) {
+func (ll LogStruct) print(lvl LevelType, v ...any) {
 	if lvl < ll.level {
 		return
 	}
 
 	ll.logInstance.Print(fmt.Sprintf(lvl.color()+"[%s] ", ll.ctx), fmt.Sprint(v...), colorReset)
+}
+
+func (ll LogStruct) Verbose(v ...any) {
+	ll.print(VERBOSE, v...)
 }
 
 func (ll LogStruct) Debug(v ...any) {
@@ -248,7 +211,7 @@ func (ll LogStruct) Fatal(v ...any) {
 	os.Exit(1)
 }
 
-func (ll *LogStruct) SetLevel(v levelType) {
+func (ll *LogStruct) SetLevel(v LevelType) {
 	ll.level = v
 }
 
@@ -256,7 +219,7 @@ func (ll *LogStruct) SetContext(c string) {
 	ll.ctx = c
 }
 
-func (ll LogStruct) GetLevel() levelType {
+func (ll LogStruct) GetLevel() LevelType {
 	return ll.level
 }
 
@@ -264,6 +227,6 @@ func (ll LogStruct) GetContext() string {
 	return ll.ctx
 }
 
-func New(ctx string, l levelType) LogStruct {
+func New(ctx string, l LevelType) LogStruct {
 	return LogStruct{ctx, log.New(os.Stderr, "", log.LstdFlags), l}
 }

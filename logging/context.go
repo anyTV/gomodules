@@ -11,7 +11,7 @@ const loggerKey ctxLogKey = 0
 
 type option struct {
 	LogCtx string
-	Level  levelType
+	Level  LevelType
 }
 
 type OptionFunc func(*option)
@@ -27,7 +27,7 @@ func WithCtx(ctx string) OptionFunc {
 	}
 }
 
-func WithLevel(level levelType) OptionFunc {
+func WithLevel(level LevelType) OptionFunc {
 	return func(opt *option) {
 		opt.Level = level
 	}

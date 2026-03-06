@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	logger "github.com/anyTV/gomodules/v2/logging"
+	"github.com/go-viper/mapstructure/v2"
 	"github.com/spf13/viper"
 )
 
@@ -62,7 +63,15 @@ func Load[T any](paths ...string) (*T, error) {
 	}
 
 	var cfg T
-	if err := v.Unmarshal(&cfg); err != nil {
+	if err := v.Unmarshal(&cfg, viper.DecodeHook(
+		mapstructure.ComposeDecodeHookFunc(
+			// Default values:
+			mapstructure.StringToTimeDurationHookFunc(),
+			mapstructure.StringToSliceHookFunc(","),
+			// New values:
+			mapstructure.TextUnmarshallerHookFunc(), // Also enables adding custom UnmarshalText hooks
+		),
+	)); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal config: %w", err)
 	}
 

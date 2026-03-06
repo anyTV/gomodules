@@ -6,6 +6,7 @@ require (
 	github.com/fsnotify/fsnotify v1.8.0
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-sql-driver/mysql v1.9.0
+	github.com/go-viper/mapstructure/v2 v2.5.0
 	github.com/redis/go-redis/v9 v9.7.1
 	github.com/sixafter/nanoid v1.44.0
 	github.com/spf13/viper v1.19.0
