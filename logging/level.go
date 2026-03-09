@@ -17,16 +17,23 @@ var colorCyan = "\033[36m"
 var colorGray = "\033[37m"
 var colorWhite = "\033[97m"
 
-// levelType
+/*
+VERBOSE: Fine-grained state changes and step-by-step execution
+DEBUG: Function returns, queries, and control flow
+INFO: Operation boundaries (start and end)
+WARN: Recoverable issues
+ERROR: Unrecoverable operation failures
+FATAL: Critical errors forcing app shutdown
+*/
 type LevelType int8
 
 const (
-	VERBOSE LevelType = iota - 2 // -2
-	DEBUG                        // -1
-	INFO                         // 0
-	WARN                         // 1
-	ERROR                        // 2
-	FATAL                        // 3
+	VERBOSE LevelType = iota - 2 // -2; Fine-grained state changes and step-by-step execution
+	DEBUG                        // -1; Function returns, queries, and control flow
+	INFO                         //  0; Operation boundaries (start and end)
+	WARN                         //  1; Recoverable issues
+	ERROR                        //  2; Unrecoverable operation failures
+	FATAL                        //  3; Critical errors forcing app shutdown
 )
 
 func (l LevelType) String() string {
