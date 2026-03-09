@@ -72,7 +72,7 @@ func (l LevelType) color() string {
 func ParseLevel(levelStr string) LevelType {
 	switch strings.ToUpper(strings.TrimSpace(levelStr)) {
 	case "VERBOSE":
-		return VERBOSE // Assuming you added VERBOSE as -2
+		return VERBOSE
 	case "DEBUG":
 		return DEBUG
 	case "INFO":
@@ -84,12 +84,12 @@ func ParseLevel(levelStr string) LevelType {
 	case "FATAL":
 		return FATAL
 	default:
-		return INFO // Safe fallback
+		return INFO
 	}
 }
 
 // UnmarshalText teaches Viper/mapstructure how to decode a string into a levelType
 func (l *LevelType) UnmarshalText(text []byte) error {
-	*l = ParseLevel(string(text)) // Using the ParseLevel func from my previous message
+	*l = ParseLevel(string(text))
 	return nil
 }
