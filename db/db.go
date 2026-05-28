@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/XSAM/otelsql"
 	logger "github.com/anyTV/gomodules/v2/logging"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -28,6 +29,23 @@ type DbConfig struct {
 
 func CreateConnection(d DbConfig) (*sql.DB, error) {
 	return sql.Open("mysql", CreateDataSourceName(d))
+}
+
+func CreateConnectionWithOTEL(d DbConfig) (*sql.DB, error) {
+	return otelsql.Open("mysql", CreateDataSourceName(d))
+}
+
+func AddConnectionWithOTEL(key string, d DbConfig) (*sql.DB, error) {
+	con, err := CreateConnectionWithOTEL(d)
+
+	if err != nil {
+		logger.Fatalf("Failed create connection(%s): %s", d.Db, err)
+		return nil, errors.Join(fmt.Errorf("failed to create connection: %s"), err)
+	}
+
+	connections[key] = con
+
+	return con, nil
 }
 
 func AddConnection(key string, d DbConfig) (*sql.DB, error) {
