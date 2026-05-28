@@ -1,3 +1,6 @@
+Version 2.6.0:
+ - feat: add functions with OTEL
+
 Version 2.5.1:
  - Dev-5844 [H2] > Logs > add verbose [(#7)](https://github.com/anyTV/gomodules/pull/7)
 
