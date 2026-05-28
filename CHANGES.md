@@ -1,3 +1,6 @@
+Version 2.6.1:
+ - feat: add unregister option and closing conns
+
 Version 2.6.0:
  - feat: add functions with OTEL
 
