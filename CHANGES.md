@@ -1,3 +1,6 @@
+Version 2.6.2:
+ - fix: remove unused import
+
 Version 2.6.1:
  - feat: add unregister option and closing conns
 
