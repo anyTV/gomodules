@@ -4,13 +4,17 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"slices"
 
 	"github.com/XSAM/otelsql"
 	logger "github.com/anyTV/gomodules/v2/logging"
 	_ "github.com/go-sql-driver/mysql"
+	"go.opentelemetry.io/otel/metric"
+	semconv "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 var connections map[string]*sql.DB = make(map[string]*sql.DB)
+var register map[string]metric.Registration = make(map[string]metric.Registration)
 
 func CreateDataSourceName(v DbConfig) string {
 	return fmt.Sprintf(
@@ -32,7 +36,11 @@ func CreateConnection(d DbConfig) (*sql.DB, error) {
 }
 
 func CreateConnectionWithOTEL(d DbConfig) (*sql.DB, error) {
-	return otelsql.Open("mysql", CreateDataSourceName(d))
+	return otelsql.Open(
+		"mysql",
+		CreateDataSourceName(d),
+		otelsql.WithAttributes(semconv.DBSystemNameMySQL),
+	)
 }
 
 func AddConnectionWithOTEL(key string, d DbConfig) (*sql.DB, error) {
@@ -40,12 +48,29 @@ func AddConnectionWithOTEL(key string, d DbConfig) (*sql.DB, error) {
 
 	if err != nil {
 		logger.Fatalf("Failed create connection(%s): %s", d.Db, err)
-		return nil, errors.Join(fmt.Errorf("failed to create connection: %s"), err)
+		return nil, errors.Join(err, fmt.Errorf("failed to create db connection"))
+	}
+
+	reg, err := otelsql.RegisterDBStatsMetrics(
+		con, otelsql.WithAttributes(semconv.DBSystemNameMySQL),
+	)
+
+	if err != nil {
+		logger.Errorf("Failed to register stat metrics (%s): %s", d.Db, err)
+		return nil, errors.Join(err, errors.New("failed to register stat metrics"))
 	}
 
 	connections[key] = con
+	register[key] = reg
 
 	return con, nil
+}
+
+func CloseAll() {
+	for k, _ := range connections {
+		connections[k].Close()
+		register[k].Unregister()
+	}
 }
 
 func AddConnection(key string, d DbConfig) (*sql.DB, error) {
