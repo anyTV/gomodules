@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"slices"
 
 	"github.com/XSAM/otelsql"
 	logger "github.com/anyTV/gomodules/v2/logging"
