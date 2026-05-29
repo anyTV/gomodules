@@ -1,3 +1,6 @@
+Version 2.6.3:
+ - feat: update conn creation with additional opts
+
 Version 2.6.2:
  - fix: remove unused import
 
