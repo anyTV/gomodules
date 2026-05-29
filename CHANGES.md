@@ -1,3 +1,6 @@
+Version 2.6.4:
+ - feat: add additional opts for skip
+
 Version 2.6.3:
  - feat: update conn creation with additional opts
 
