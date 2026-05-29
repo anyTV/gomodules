@@ -40,7 +40,11 @@ func CreateConnectionWithOTEL(d DbConfig) (*sql.DB, error) {
 		CreateDataSourceName(d),
 		otelsql.WithAttributes(semconv.DBSystemNameMySQL),
 		otelsql.WithDisableSkipErrMeasurement(true),
-		otelsql.WithSpanOptions(otelsql.SpanOptions{ DisableErrSkip: true }),
+		otelsql.WithSpanOptions(otelsql.SpanOptions{
+			DisableErrSkip: true,
+			OmitConnResetSession: true,
+			OmitConnPrepare: true,
+		}),
 	)
 }
 
