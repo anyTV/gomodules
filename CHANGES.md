@@ -1,3 +1,7 @@
+Version 2.7.0:
+ - NOREF: update bump-version
+ - NOREF: Fix > Failed to load config [(#8)](https://github.com/anyTV/gomodules/pull/8)
+
 Version 2.6.4:
  - feat: add additional opts for skip
 
