@@ -72,7 +72,7 @@ func AddConnectionWithOTEL(key string, d DbConfig) (*sql.DB, error) {
 }
 
 func CloseAll() {
-	for k, _ := range connections {
+	for k := range connections {
 		connections[k].Close()
 		register[k].Unregister()
 	}
