@@ -45,7 +45,7 @@ func NewConfig() {
 	viper.WatchConfig()
 }
 
-// Deprecated: Use config.New[env.AppConfig]() instead
+// SetMaxDepth sets how many parent directories config.New searches for config files.
 func SetMaxDepth(v int) {
 	maxDepth = v
 }
