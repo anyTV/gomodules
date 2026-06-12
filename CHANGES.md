@@ -1,3 +1,6 @@
+Version 2.7.1:
+ - NOREF: Add release workflow [(#10)](https://github.com/anyTV/gomodules/pull/10)
+
 Version 2.7.0:
  - NOREF: update bump-version
  - NOREF: Fix > Failed to load config [(#8)](https://github.com/anyTV/gomodules/pull/8)
