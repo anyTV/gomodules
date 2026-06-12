@@ -72,7 +72,7 @@ func AddConnectionWithOTEL(key string, d DbConfig) (*sql.DB, error) {
 }
 
 func CloseAll() {
-	for k, _ := range connections {
+	for k := range connections {
 		connections[k].Close()
 		register[k].Unregister()
 	}
@@ -83,7 +83,7 @@ func AddConnection(key string, d DbConfig) (*sql.DB, error) {
 
 	if err != nil {
 		logger.Fatalf("Failed create connection(%s): %s", d.Db, err)
-		return nil, errors.Join(fmt.Errorf("failed to create connection: %s"), err)
+		return nil, errors.Join(err, errors.New("failed to create connection"))
 	}
 
 	connections[key] = con
