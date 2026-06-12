@@ -59,7 +59,7 @@ jobs:
 
       - name: Create GitHub release
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           tag="${{ steps.release.outputs.tag }}"
 
