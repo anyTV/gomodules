@@ -1,0 +1,74 @@
+name: release
+
+on:
+  workflow_run:
+    workflows:
+      - bump-version
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app-token
+        with:
+          client-id: ${{ vars.CI_CLIENT_ID }}
+          private-key: ${{ secrets.CI_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.repository }}
+
+      - name: Export GH_TOKEN to environment
+        run: |
+          echo "GH_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
+      - name: Checkout bumped version
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Prepare release metadata
+        id: release
+        run: |
+          version="$(tr -d '[:space:]' < VERSION)"
+          tag="v${version}"
+
+          git fetch --tags --force
+          git rev-parse --verify --quiet "refs/tags/${tag}"
+
+          awk -v version="${version}" '
+            $0 == "Version " version ":" { capture = 1; next }
+            capture && /^Version / { exit }
+            capture { print }
+          ' CHANGES.md > release-notes.md
+
+          if [ ! -s release-notes.md ]; then
+            printf 'Release %s\n' "${tag}" > release-notes.md
+          fi
+
+          {
+            echo "version=${version}"
+            echo "tag=${tag}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+        run: |
+          tag="${{ steps.release.outputs.tag }}"
+
+          if gh release view "${tag}" >/dev/null 2>&1; then
+            echo "Release ${tag} already exists."
+            exit 0
+          fi
+
+          gh release create "${tag}" \
+            --title "${tag}" \
+            --notes-file release-notes.md \
+            --verify-tag
