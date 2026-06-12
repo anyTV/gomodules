@@ -18,9 +18,14 @@ jobs:
       - uses: actions/create-github-app-token@v3
         id: app-token
         with:
-          app-id: ${{ vars.CI_APP_ID }}
+          client-id: ${{ vars.CI_CLIENT_ID }}
           private-key: ${{ secrets.CI_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
+          repositories: ${{ github.repository }}
+
+      - name: Export GH_TOKEN to environment
+        run: |
+          echo "GH_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
       - name: Checkout bumped version
         uses: actions/checkout@v4
         with:
