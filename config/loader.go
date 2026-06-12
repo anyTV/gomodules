@@ -21,14 +21,20 @@ import (
 func New[T any]() (*T, error) {
 	env := os.Getenv("ENV")
 
-	files := []string{
-		".env.yaml",                            // Base
-		fmt.Sprintf(".env.%s.yaml", env),       // Env specific
-		fmt.Sprintf(".env.%s.local.yaml", env), // Env + Local specific
-		".env.local.yaml",                      // Local overrides
+	names := []string{
+		".env", // Base
 	}
 
-	return Load[T](files...)
+	if env != "" {
+		names = append(names,
+			fmt.Sprintf(".env.%s", env),       // Env specific
+			fmt.Sprintf(".env.%s.local", env), // Env + Local specific
+		)
+	}
+
+	names = append(names, ".env.local") // Local overrides
+
+	return loadConfigNames[T](names...)
 }
 
 // Load reads configuration from the provided files into a struct of type T.
@@ -46,6 +52,7 @@ func Load[T any](paths ...string) (*T, error) {
 
 	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	v.AutomaticEnv()
+	v.SetConfigType("yaml")
 
 	for i, path := range paths {
 		v.SetConfigFile(path)
@@ -76,4 +83,58 @@ func Load[T any](paths ...string) (*T, error) {
 	}
 
 	return &cfg, nil
+}
+
+func loadConfigNames[T any](names ...string) (*T, error) {
+	if len(names) == 0 {
+		return nil, fmt.Errorf("at least one config file must be provided")
+	}
+
+	v := viper.New()
+
+	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+	v.AutomaticEnv()
+	v.SetConfigType("yaml")
+
+	if err := addConfigPaths(v); err != nil {
+		return nil, err
+	}
+
+	for i, name := range names {
+		v.SetConfigName(name)
+
+		if i == 0 {
+			if err := v.ReadInConfig(); err != nil {
+				return nil, fmt.Errorf("failed to read base config %s.yaml: %w", name, err)
+			}
+		} else {
+			if err := v.MergeInConfig(); err == nil {
+				logger.Debugf("Merged config: %s", v.ConfigFileUsed())
+			}
+		}
+	}
+
+	var cfg T
+	if err := v.Unmarshal(&cfg, viper.DecodeHook(
+		mapstructure.ComposeDecodeHookFunc(
+			mapstructure.StringToTimeDurationHookFunc(),
+			mapstructure.StringToSliceHookFunc(","),
+			mapstructure.TextUnmarshallerHookFunc(),
+		),
+	)); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal config: %w", err)
+	}
+
+	return &cfg, nil
+}
+
+func addConfigPaths(v *viper.Viper) error {
+	configPath := "./"
+
+	for range maxDepth {
+		v.AddConfigPath(configPath)
+		configPath += "../"
+	}
+
+	return nil
 }
