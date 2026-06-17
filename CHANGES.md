@@ -1,3 +1,6 @@
+Version 2.8.0:
+ - NOREF: Upgrade to go 1.26 [(#9)](https://github.com/anyTV/gomodules/pull/9)
+
 Version 2.7.3:
  - NOREF: Fix > Wrong version released [(#12)](https://github.com/anyTV/gomodules/pull/12)
 
