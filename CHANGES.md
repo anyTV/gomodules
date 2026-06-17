@@ -1,3 +1,6 @@
+Version 2.7.3:
+ - NOREF: Fix > Wrong version released [(#12)](https://github.com/anyTV/gomodules/pull/12)
+
 Version 2.7.2:
  - NOREF: Fix > Update GitHub release token to use app-token output [(#11)](https://github.com/anyTV/gomodules/pull/11)
 
